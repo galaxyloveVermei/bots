@@ -13,6 +13,14 @@ from aiogram.utils import executor
 API_TOKEN = '6654870459:AAHXKJNMouotHFhInIZPZcFkZTDQERD4BuA'
 
 logging.basicConfig(level=logging.INFO)
+
+bot = Bot(token=API_TOKEN, parse_mode='HTML')
+storage = MemoryStorage()
+dp = Dispatcher(bot, storage=storage)
+db = LightDB('users.json') 
+init_ts = time.perf_counter()
+admins = ["6508245262"]
+
 class States(StatesGroup):
     waiting_for_msg = State()
 
@@ -22,9 +30,10 @@ def uptime():
 
 @dp.message_handler(commands=["start"], state=None)
 async def cmd_start(message: types.Message):
-    await message.reply("Привет, @Garik143!\n"
-                        "Я бот созданный @dollar_coder\n"
-                        "Если у тебя есть вопросы пиши моему создателю)"
+    await message.reply("Привет!\n"
+                        ""
+                        ""
+                        ""
                         )
     try:
         users: list = db.get('users')
@@ -42,6 +51,7 @@ async def donate(message:types.message):
         ""
     )
 
+@dp.message_handler(commands=["help"])
 async def help(message: types.message):
     await message.answer(
         "/ping - показывает пинг бота\n"
